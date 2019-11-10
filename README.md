@@ -1,8 +1,10 @@
 # ExWinlog
 
-**TODO: Add description**
+This is a port of Rust's [winlog]([https://crates.io/crates/winlog) crate. It enables Elixir applications to log to the [Windows Event Log](https://docs.microsoft.com/windows/win32/wes/windows-event-log), using the `Logger` interface.
 
 ## Installation
+
+Since this library uses `Rustler`, you must have Rust installed on the machine when compiling.
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `ex_winlog` to your list of dependencies in `mix.exs`:
