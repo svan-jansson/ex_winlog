@@ -72,6 +72,7 @@ name = "ex_winlog_nif"
 version = "0.1.0"
 dependencies = [
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustler 0.21.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "winlog 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]

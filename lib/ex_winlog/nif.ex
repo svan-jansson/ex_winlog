@@ -4,4 +4,5 @@ defmodule ExWinlog.Nif do
 
     def register(_event_source_name), do: :erlang.nif_error(:nif_not_loaded)
     def deregister(_event_source_name), do: :erlang.nif_error(:nif_not_loaded)
+    def info(_event_source_name, _log_string), do: :erlang.nif_error(:nif_not_loaded)
 end

@@ -13,3 +13,4 @@ crate-type = ["dylib"]
 rustler = "0.21.0"
 lazy_static = "1.0"
 winlog = "0.2.6"
+log = { version = "0.4", features = [ "std" ] }

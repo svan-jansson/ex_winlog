@@ -1,4 +1,5 @@
 #[macro_use] extern crate rustler;
+#[macro_use] extern crate log;
 
 use rustler::{Encoder, Env, Error, Term};
 
@@ -18,7 +19,8 @@ rustler::rustler_export_nifs! {
     "Elixir.ExWinlog.Nif",
     [
         ("register", 1, register),
-        ("deregister", 1, deregister)
+        ("deregister", 1, deregister),
+        ("info", 2, info)
     ],
     None
 }
@@ -42,3 +44,16 @@ fn deregister<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
         Err(winlog::Error::ExePathNotFound) => Ok((atoms::error(), atoms::exe_path_not_found()).encode(env))
     }
 }
+ fn info<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+    let source: &str = args[0].decode()?;
+    let log_string: &str = args[1].decode()?;
+
+    if let Ok(_result) = winlog::init(source) {
+        info!("{}", log_string);
+        Ok((atoms::ok()).encode(env))
+    }
+    else {
+        Ok((atoms::error()).encode(env))
+    }
+
+ }
