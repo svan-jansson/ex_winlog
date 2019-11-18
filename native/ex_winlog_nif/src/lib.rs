@@ -20,7 +20,10 @@ rustler::rustler_export_nifs! {
     [
         ("register", 1, register),
         ("deregister", 1, deregister),
-        ("info", 2, info)
+        ("info", 2, info),
+        ("error", 2, error),
+        ("warn", 2, warn),
+        ("debug", 2, debug)
     ],
     None
 }
@@ -44,16 +47,51 @@ fn deregister<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
         Err(winlog::Error::ExePathNotFound) => Ok((atoms::error(), atoms::exe_path_not_found()).encode(env))
     }
 }
- fn info<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+
+fn info<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
     let source: &str = args[0].decode()?;
     let log_string: &str = args[1].decode()?;
 
-    if let Ok(_result) = winlog::init(source) {
-        info!("{}", log_string);
-        Ok((atoms::ok()).encode(env))
+    match winlog::init(source) {
+        _ => {
+            info!("{}", log_string);
+            Ok((atoms::ok()).encode(env))
+        }
     }
-    else {
-        Ok((atoms::error()).encode(env))
-    }
+ }
 
+ fn error<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+    let source: &str = args[0].decode()?;
+    let log_string: &str = args[1].decode()?;
+
+    match winlog::init(source) {
+        _ => {
+            error!("{}", log_string);
+            Ok((atoms::ok()).encode(env))
+        }
+    }
+ }
+
+ fn warn<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+    let source: &str = args[0].decode()?;
+    let log_string: &str = args[1].decode()?;
+
+    match winlog::init(source) {
+        _ => {
+            warn!("{}", log_string);
+            Ok((atoms::ok()).encode(env))
+        }
+    }
+ }
+
+ fn debug<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
+    let source: &str = args[0].decode()?;
+    let log_string: &str = args[1].decode()?;
+
+    match winlog::init(source) {
+        _ => {
+            debug!("{}", log_string);
+            Ok((atoms::ok()).encode(env))
+        }
+    }
  }
