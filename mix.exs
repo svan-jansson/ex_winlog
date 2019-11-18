@@ -4,12 +4,14 @@ defmodule ExWinlog.MixProject do
   def project do
     [
       app: :ex_winlog,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       compilers: [:rustler] ++ Mix.compilers(),
-      rustler_crates: [ex_winlog_nif: [mode: if(Mix.env() == :prod, do: :release, else: :debug)]]
+      rustler_crates: [ex_winlog_nif: [mode: if(Mix.env() == :prod, do: :release, else: :debug)]],
+      description: description(),
+      package: package()
     ]
   end
 
@@ -21,7 +23,22 @@ defmodule ExWinlog.MixProject do
 
   defp deps do
     [
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
       {:rustler, "~> 0.21.0"}
+    ]
+  end
+
+  defp description do
+    """
+    Elixir Logger Backend that enables applications to log to the Windows Event Log
+    """
+  end
+
+  defp package do
+    [
+      maintainers: ["Svan Jansson"],
+      licenses: ["MIT"],
+      links: %{"Github": "https://github.com/svan-jansson/ex_winlog"}
     ]
   end
 end
