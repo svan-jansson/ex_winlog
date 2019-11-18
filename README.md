@@ -1,6 +1,6 @@
 # ExWinlog
 
-This is a port of Rust's [winlog]([https://crates.io/crates/winlog) crate. It enables Elixir applications to log to the [Windows Event Log](https://docs.microsoft.com/windows/win32/wes/windows-event-log), using the `Logger` interface. Docs can be found at [https://hexdocs.pm/ex_winlog](https://hexdocs.pm/ex_winlog).
+This library enables Elixir applications to log to the [Windows Event Log](https://docs.microsoft.com/windows/win32/wes/windows-event-log), using the `Logger` interface. It makes use of Rust's [winlog]([https://crates.io/crates/winlog) crate. Docs can be found at [https://hexdocs.pm/ex_winlog](https://hexdocs.pm/ex_winlog).
 
 ## Installation
 
