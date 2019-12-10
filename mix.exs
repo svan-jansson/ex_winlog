@@ -38,7 +38,8 @@ defmodule ExWinlog.MixProject do
     [
       maintainers: ["Svan Jansson"],
       licenses: ["MIT"],
-      links: %{"Github": "https://github.com/svan-jansson/ex_winlog"}
+      links: %{Github: "https://github.com/svan-jansson/ex_winlog"},
+      files: ~w(lib .formatter.exs mix.exs README* LICENSE* native)
     ]
   end
 end
