@@ -14,7 +14,7 @@ Since this library uses `Rustler`, you must have Rust installed on the machine w
 ```elixir
 def deps do
   [
-    {:ex_winlog, "~> 0.1.4"}
+    {:ex_winlog, "~> 0.1.5"}
   ]
 end
 ```
