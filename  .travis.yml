@@ -1,5 +1,8 @@
-language: elixir
+language: shell
 os: windows
+
+script:
+  - choco install elixir
 
 deploy:
   provider: script
