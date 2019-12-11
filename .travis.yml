@@ -1,9 +1,8 @@
-language: shell
+language: rust
 os: windows
 
 install:
   - choco install elixir
-  - choco install rust-ms
 
 script:
   - ci.publish.bat
