@@ -11,7 +11,10 @@ defmodule ExWinlog.MixProject do
       compilers: [:rustler] ++ Mix.compilers(),
       rustler_crates: [ex_winlog_nif: [mode: if(Mix.env() == :prod, do: :release, else: :debug)]],
       description: description(),
-      package: package()
+      package: package(),
+      docs: [
+        logo: "logo/ex_winlog.svg"
+      ]
     ]
   end
 
