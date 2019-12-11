@@ -3,10 +3,7 @@ os: windows
 
 script:
   - choco install elixir
-
-deploy:
-  provider: script
-  script: >-
-    mix deps.get &&
-    mix hex.publish --yes &&
-    git clean -f
+  - refreshenv
+  - mix deps.get
+  - mix hex.publish --yes
+  - git clean -f
