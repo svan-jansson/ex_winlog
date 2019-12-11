@@ -1,0 +1,9 @@
+language: elixir
+os: windows
+
+deploy:
+  provider: script
+  script: >-
+    mix deps.get &&
+    mix hex.publish --yes &&
+    git clean -f
