@@ -29,3 +29,5 @@ config :logger,
 ### Registering Event Sources
 
 The `ExWinlog` backend requires that the event source, `"My Event Source Name"` in the example, is registered with Windows Event Viewer. Use `ExWinlog.register/1` and `ExWinlog.deregister/1`, while running the application as an administrator, to manage the sources. This should typically be done once when installing or uninstalling the application.
+
+Test
