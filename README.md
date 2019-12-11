@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/svan-jansson/ex_winlog.svg?branch=master)](https://travis-ci.com/svan-jansson/ex_winlog)
 [![Hex pm](https://img.shields.io/hexpm/v/ex_winlog.svg?style=flat)](https://hex.pm/packages/ex_winlog)
+[![Hex pm](https://img.shields.io/hexpm/dt/ex_winlog.svg?style=flat)](https://hex.pm/packages/ex_winlog)
 
 # ex_winlog - Log to Windows Event Log with Elixir
 
