@@ -8,5 +8,6 @@ install:
   - choco install elixir
 
 script:
+  - $MIX local.hex --force
   - $MIX deps.get
   - $MIX hex.publish --yes
