@@ -6,4 +6,4 @@ install:
   - choco install rust-ms
 
 script:
-  - .ci.publish.bat
+  - ci.publish.bat
