@@ -1,8 +1,12 @@
 language: rust
 os: windows
 
+env:
+  - MIX=C:\ProgramData\chocolatey\lib\Elixir\bin\mix.bat
+
 install:
   - choco install elixir
 
 script:
-  - ci.publish.bat
+  - $MIX deps.get
+  - $MIX hex.publish --yes
