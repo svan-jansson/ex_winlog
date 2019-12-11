@@ -4,7 +4,7 @@ defmodule ExWinlog.MixProject do
   def project do
     [
       app: :ex_winlog,
-      version: "0.1.5",
+      version: "0.1.6",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -13,7 +13,7 @@ defmodule ExWinlog.MixProject do
       description: description(),
       package: package(),
       docs: [
-        logo: "logo/ex_winlog.svg"
+        logo: "logo/ex_winlog.svg.png"
       ]
     ]
   end
