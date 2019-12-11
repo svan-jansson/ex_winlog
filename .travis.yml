@@ -5,6 +5,4 @@ install:
   - choco install elixir
 
 script:
-  - mix deps.get
-  - mix hex.publish --yes
-  - git clean -f
+  - .ci.publish.bat
