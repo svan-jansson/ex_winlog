@@ -1,9 +1,10 @@
 language: shell
 os: windows
 
-script:
+install:
   - choco install elixir
-  - refreshenv
+
+script:
   - mix deps.get
   - mix hex.publish --yes
   - git clean -f
