@@ -3,7 +3,7 @@ os: windows
 
 install:
   - choco install elixir
-  - choco install rust
+  - choco install rust-ms
 
 script:
   - .ci.publish.bat
