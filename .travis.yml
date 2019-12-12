@@ -13,6 +13,8 @@ jobs:
     - stage: test
       script:
         - $MIX deps.get
+        - $MIX compile --force --warnings-as-errors
+        - $MIX credo --strict
         - $MIX test
     - stage: deploy
       if: branch = master AND type = push AND fork = false

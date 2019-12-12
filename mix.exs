@@ -27,6 +27,7 @@ defmodule ExWinlog.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:rustler, "~> 0.21.0"}
     ]
   end
