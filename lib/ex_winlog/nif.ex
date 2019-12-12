@@ -1,4 +1,3 @@
-# credo:disable-for-this-file
 defmodule ExWinlog.Nif do
   @moduledoc false
   use Rustler, otp_app: :ex_winlog, crate: "ex_winlog_nif"
