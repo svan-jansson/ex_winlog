@@ -14,7 +14,7 @@ jobs:
       script:
         - $MIX deps.get
         - $MIX compile --force --warnings-as-errors
-        - $MIX credo --strict --ignore trailing_white_space,line_endings
+        - $MIX credo --strict --ignore TrailingWhiteSpace,LineEndings
         - $MIX test
     - stage: deploy
       if: branch = master AND type = push AND fork = false
