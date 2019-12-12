@@ -6,8 +6,16 @@ env:
 
 install:
   - choco install elixir
-
-script:
   - $MIX local.hex --force
-  - $MIX deps.get
-  - $MIX hex.publish --yes
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - $MIX deps.get
+        - $MIX test
+    - stage: deploy
+      if: branch = master AND type = push AND fork = false
+      script:
+        - $MIX deps.get
+        - $MIX hex.publish --yes
