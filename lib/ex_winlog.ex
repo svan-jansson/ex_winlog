@@ -54,7 +54,16 @@ defmodule ExWinlog do
         %{level: min_level, event_source_name: event_source_name} = state
       ) do
     if is_nil(min_level) or Logger.compare_levels(level, min_level) != :lt do
-      :ok = apply(ExWinlog.Logger, level, [event_source_name, msg])
+      try do
+          case msg do
+              msg_iodata when is_list(msg_iodata) -> 
+                  :ok = apply(ExWinlog.Logger, level, [event_source_name, IO.iodata_to_binary(msg_iodata)])
+              msg_binary when is_binary(msg_binary) ->
+                  :ok = apply(ExWinlog.Logger, level, [event_source_name, msg_binary]) 
+          end
+      catch _,_ -> 
+           :ok
+      end
     end
 
     {:ok, state}
