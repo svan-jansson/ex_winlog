@@ -24,3 +24,9 @@ ex_winlog-*.tar
 
 # Ignore Rust dlls
 *.dll
+
+# Rust build artifacts
+native/*/target/
+
+# Compiled NIF shared libraries
+/priv/native/

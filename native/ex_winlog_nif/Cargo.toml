@@ -10,7 +10,10 @@ path = "src/lib.rs"
 crate-type = ["dylib"]
 
 [dependencies]
-rustler = "0.21.0"
-lazy_static = "1.0"
+rustler = "0.37"
+
+[target.'cfg(windows)'.dependencies]
 winlog = "0.2.6"
-log = { version = "0.4", features = [ "std" ] }
+log = { version = "0.4", features = ["std"] }
+regex = "1.5.5"
+generic-array = "0.12.4"
