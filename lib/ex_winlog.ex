@@ -20,9 +20,15 @@ defmodule ExWinlog do
 
   @behaviour GenEvent
 
+  @doc """
+  Registers a new event source with Windows Event Viewer. Must be run as an administrator.
+  """
   @spec register(String.t()) :: {:ok, :event_source_registered} | {:error, atom()}
   def register(event_source_name), do: ExWinlog.Logger.register(event_source_name)
 
+  @doc """
+  De-registers an existing event source with Windows Event Viewer. Must be run as an administrator.
+  """
   @spec deregister(String.t()) :: {:ok, :event_source_deregistered} | {:error, atom()}
   def deregister(event_source_name), do: ExWinlog.Logger.deregister(event_source_name)
 

@@ -29,9 +29,9 @@ native/ex_winlog_nif/
   Cargo.toml
 test/
   ex_winlog_test.exs
-mix.exs                   # Build config; Rustler compiler is added here
+mix.exs                   # Build config and project metadata
 .formatter.exs
-.travis.yml               # CI (Windows runners only)
+.github/workflows/        # GitHub Actions CI (build+test on Ubuntu & Windows)
 ```
 
 ---
@@ -79,8 +79,9 @@ need administrator privileges, or documented clearly.
 ### Rust
 
 - Format with `cargo fmt` before committing.
-- NIF functions return `rustler::Atom` for simple outcomes and
-  `rustler::error::Error` for failures – match the existing pattern.
+- NIF functions return already-encoded `rustler::Term` values (e.g.
+  `atoms::ok().encode(env)` for success, `(atoms::error(), atoms::reason()).encode(env)`
+  for failures). Match the existing return shapes in `native/ex_winlog_nif/src/lib.rs`.
 - Error atoms are defined in `lib.rs`; keep the set minimal and consistent with
   what the Elixir layer pattern-matches on.
 - Do not add Rust dependencies without a clear justification; the Cargo.lock is
