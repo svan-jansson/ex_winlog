@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/svan-jansson/ex_winlog.svg?branch=master)](https://travis-ci.com/svan-jansson/ex_winlog)
+[![Build Status](https://github.com/svan-jansson/ex_winlog/actions/workflows/build-test-publish.yml/badge.svg)](https://github.com/svan-jansson/ex_winlog/actions/workflows/build-test-publish.yml)
 [![Hex pm](https://img.shields.io/hexpm/v/ex_winlog.svg?style=flat)](https://hex.pm/packages/ex_winlog)
 [![Hex pm](https://img.shields.io/hexpm/dt/ex_winlog.svg?style=flat)](https://hex.pm/packages/ex_winlog)
 
@@ -13,7 +13,7 @@ Since this library uses `Rustler`, you must have Rust installed on the machine w
 ```elixir
 def deps do
   [
-    {:ex_winlog, "~> 0.1"}
+    {:ex_winlog, "~> 0.2"}
   ]
 end
 ```
