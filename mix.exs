@@ -4,12 +4,10 @@ defmodule ExWinlog.MixProject do
   def project do
     [
       app: :ex_winlog,
-      version: "0.1.8",
+      version: "0.0.0-dev",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      compilers: [:rustler] ++ Mix.compilers(),
-      rustler_crates: [ex_winlog_nif: [mode: if(Mix.env() == :prod, do: :release, else: :debug)]],
       description: description(),
       package: package(),
       docs: [
@@ -26,9 +24,9 @@ defmodule ExWinlog.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:rustler, "~> 0.21.0"}
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:rustler, "~> 0.37"}
     ]
   end
 

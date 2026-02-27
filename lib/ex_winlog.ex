@@ -20,72 +20,76 @@ defmodule ExWinlog do
 
   @behaviour GenEvent
 
-  @default_state %{
-    name: nil,
-    path: nil,
-    io_device: nil,
-    inode: nil,
-    format: nil,
-    level: nil,
-    metadata: nil,
-    metadata_filter: nil,
-    rotate: nil
-  }
-
   @doc """
   Registers a new event source with Windows Event Viewer. Must be run as an administrator.
   """
+  @spec register(String.t()) :: {:ok, :event_source_registered} | {:error, atom()}
   def register(event_source_name), do: ExWinlog.Logger.register(event_source_name)
 
   @doc """
   De-registers an existing event source with Windows Event Viewer. Must be run as an administrator.
   """
+  @spec deregister(String.t()) :: {:ok, :event_source_deregistered} | {:error, atom()}
   def deregister(event_source_name), do: ExWinlog.Logger.deregister(event_source_name)
 
   @impl true
-  def init({__MODULE__, event_source_name}) do
-    state = Map.put(@default_state, :event_source_name, event_source_name)
-    {:ok, state}
+  def init({__MODULE__, event_source_name})
+      when is_binary(event_source_name) and byte_size(event_source_name) > 0 do
+    {:ok, %{event_source_name: event_source_name, level: nil}}
   end
+
+  def init({__MODULE__, _invalid}) do
+    {:error, :invalid_event_source_name}
+  end
+
+  @known_levels [:debug, :info, :warn, :warning, :error]
 
   @impl true
   def handle_event(
         {level, _gl, {Logger, msg, _ts, _md}},
-        %{level: min_level, event_source_name: event_source_name} = state
+        %{level: min_level, event_source_name: source} = state
       ) do
     if is_nil(min_level) or Logger.compare_levels(level, min_level) != :lt do
-      try do
-          case msg do
-              msg_iodata when is_list(msg_iodata) -> 
-                  :ok = apply(ExWinlog.Logger, level, [event_source_name, IO.iodata_to_binary(msg_iodata)])
-              msg_binary when is_binary(msg_binary) ->
-                  :ok = apply(ExWinlog.Logger, level, [event_source_name, msg_binary]) 
-          end
-      catch _,_ -> 
-           :ok
-      end
+      log(level, source, msg)
     end
 
     {:ok, state}
   end
 
-  @impl true
-  def handle_call(_, state) do
-    {:ok, :ok, state}
-  end
+  def handle_event(:flush, state), do: {:ok, state}
+
+  def handle_event(_, state), do: {:ok, state}
 
   @impl true
-  def handle_info(_, state) do
-    {:ok, state}
+  def handle_call({:configure, opts}, state) do
+    level = Keyword.get(opts, :level, state.level)
+    {:ok, :ok, %{state | level: level}}
   end
 
-  @impl true
-  def code_change(_old_vsn, state, _extra) do
-    {:ok, state}
-  end
+  def handle_call(_, state), do: {:ok, :ok, state}
 
   @impl true
-  def terminate(_reason, _state) do
-    :ok
+  def handle_info(_, state), do: {:ok, state}
+
+  @impl true
+  def code_change(_old_vsn, state, _extra), do: {:ok, state}
+
+  @impl true
+  def terminate(_reason, _state), do: :ok
+
+  defp log(level, source, msg) when level in @known_levels do
+    log_string =
+      case msg do
+        iodata when is_list(iodata) -> IO.iodata_to_binary(iodata)
+        binary when is_binary(binary) -> binary
+      end
+
+    try do
+      :ok = apply(ExWinlog.Logger, level, [source, log_string])
+    catch
+      _, _ -> :ok
+    end
   end
+
+  defp log(_level, _source, _msg), do: :ok
 end
